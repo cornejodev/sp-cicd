@@ -17,7 +17,7 @@ class TestLandingPage:
             )
             assert google_header.is_displayed(), "Google element displayed."
         except NoSuchElementException:
-            landing_page.save_screenshot(self.test_landing_page_amazon.__name__)
+            landing_page.save_screenshot(self.test_landing_page_google.__name__)
             raise AssertionError("Google header does not exist.")
 
     # def test_landing_page_amazon(self, driver):  # will fail on purpose
