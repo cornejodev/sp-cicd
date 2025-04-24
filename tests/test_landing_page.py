@@ -34,7 +34,7 @@ class TestLandingPage:
                 landing_page.current_url == "https://www.google.com/"
             ), f"Expected URL to be 'https://www.google.com/', but got '{landing_page.current_url}'"
         except AssertionError as e:
-            landing_page.save_screenshot(self.test_landing_page_google.__name__)
+            landing_page.save_screenshot(self.test_landing_page_google_fail.__name__)
             raise e
 
     # def test_landing_page_amazon(self, driver):  # will fail on purpose
