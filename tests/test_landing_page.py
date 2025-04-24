@@ -1,4 +1,5 @@
 import pytest
+from po import landing_page
 from po.landing_page import LandingPage
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
@@ -10,9 +11,7 @@ class TestLandingPage:
 
     def test_landing_page_google(self, driver):
         landing_page = LandingPage(driver)
-        landing_page.open_url(
-            "https://your-landing-page.com"
-        )  # Or use `open_landing_page()` if defined
+        landing_page.open_landing_page()
 
         locator = (By.XPATH, "//a[contains(text(), 'Google')]")
 
