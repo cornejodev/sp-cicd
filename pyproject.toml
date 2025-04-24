@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "sp-cicd"
+version = "0.1.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.2.2"
+selenium = "^4.22.0"
+pytest-html = "^4.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
