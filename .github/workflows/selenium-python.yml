@@ -25,10 +25,12 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --no-root
 
       - name: Run Selenium tests
-        run: poetry run pytest --html=reports/report.html tests/
+        run: |
+          mkdir -p reports
+          poetry run pytest --html=reports/report.html tests/
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3
