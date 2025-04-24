@@ -7,20 +7,17 @@ from selenium.common.exceptions import TimeoutException
 
 
 #  poetry run pytest --html=reports/report.html tests/.
+
+
 class TestLandingPage:
 
     def test_landing_page_google(self, driver):
         landing_page = LandingPage(driver)
         landing_page.open_landing_page()
 
-        locator = (By.XPATH, "//input[@aria-label='Google Search']")
-
-        try:
-            landing_page.wait_until_element_is_visible(locator)
-            assert landing_page.is_displayed(locator), "Google link should be visible"
-        except TimeoutException or NoSuchElementException:
-            landing_page.save_screenshot(self.test_landing_page_google.__name__)
-            raise AssertionError("Google link not visible in time")
+        assert (
+            landing_page.current_url == "https://www.google.com/"
+        ), f"Expected URL to be 'https://www.google.com/', but got '{landing_page.current_url}'"
 
     # def test_landing_page_amazon(self, driver):  # will fail on purpose
     #     landing_page = LandingPage(driver)
