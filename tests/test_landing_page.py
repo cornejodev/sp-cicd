@@ -13,7 +13,7 @@ class TestLandingPage:
         landing_page = LandingPage(driver)
         landing_page.open_landing_page()
 
-        locator = (By.XPATH, "//a[contains(text(), 'Google')]")
+        locator = (By.XPATH, "//input[@aria-label='Google Search']")
 
         try:
             landing_page.wait_until_element_is_visible(locator)
