@@ -29,7 +29,7 @@ jobs:
         run: poetry install --no-root
 
       - name: Run Selenium tests
-        run: poetry run pytest --html=reports/report.html tests/.
+        run: poetry run pytest --html=reports/report.html tests/
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4

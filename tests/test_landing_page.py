@@ -20,15 +20,15 @@ class TestLandingPage:
             landing_page.save_screenshot(self.test_landing_page_amazon.__name__)
             raise AssertionError("Google header does not exist.")
 
-    def test_landing_page_amazon(self, driver):  # will fail on purpose
-        landing_page = LandingPage(driver)
-        landing_page.open_landing_page_produce_error()
+    # def test_landing_page_amazon(self, driver):  # will fail on purpose
+    #     landing_page = LandingPage(driver)
+    #     landing_page.open_landing_page_produce_error()
 
-        try:
-            google_header = landing_page.find(
-                (By.XPATH, "//a[contains(text(), 'Google')]")
-            )
-            assert google_header.is_displayed(), "Google element displayed."
-        except NoSuchElementException:
-            landing_page.save_screenshot(self.test_landing_page_amazon.__name__)
-            raise AssertionError("Google header does not exist.")
+    #     try:
+    #         google_header = landing_page.find(
+    #             (By.XPATH, "//a[contains(text(), 'Google')]")
+    #         )
+    #         assert google_header.is_displayed(), "Google element displayed."
+    #     except NoSuchElementException:
+    #         landing_page.save_screenshot(self.test_landing_page_amazon.__name__)
+    #         raise AssertionError("Google header does not exist.")
