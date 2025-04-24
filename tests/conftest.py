@@ -2,24 +2,44 @@ import os
 import base64
 import pytest
 import pytest_html
-
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+
+# HEADLESS=false poetry run pytest --html=reports/report.html tests/
+# BROWSER=firefox HEADLESS=false poetry run pytest --html=reports/report.html tests/
 
 
 @pytest.fixture(scope="function")
-def driver(request):
-    browser = request.config.getoption("--browser")
-    print(f"Creating {browser} driver")
+def driver():
+    browser = os.getenv("BROWSER", "chrome")
+    headless = os.getenv("HEADLESS", "true").lower() == "true"
+
+    print(f"Launching {browser} (headless={headless})")
+
     if browser == "chrome":
-        my_driver = webdriver.Chrome()
+        options = ChromeOptions()
+        if headless:
+            options.add_argument("--headless=new")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--user-data-dir=/tmp/chrome-profile")
+        driver = webdriver.Chrome(options=options)
+
     elif browser == "firefox":
-        my_driver = webdriver.Firefox()
+        options = FirefoxOptions()
+        if headless:
+            options.add_argument("--headless")
+        driver = webdriver.Firefox(options=options)
+
     else:
-        raise ValueError(f"Expected 'chrome' or 'firefox', but got {browser}")
-    my_driver.maximize_window()
-    yield my_driver
-    print(f"Closing {browser} driver")
-    my_driver.quit()
+        raise ValueError(f"Unsupported browser: {browser}")
+
+    driver.maximize_window()
+    yield driver
+    driver.quit()
 
 
 def pytest_addoption(parser):
@@ -59,4 +79,3 @@ def pytest_runtest_makereport(item):
 
 
 # $x('//nav/ol/li/a[contains(text(),"Women")]/text()').map(x=>x.wholeText)
-
