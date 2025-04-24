@@ -30,10 +30,10 @@ jobs:
       - name: Run Selenium tests
         run: |
           mkdir -p reports
-          poetry run pytest --html=reports/report.html tests/
+          poetry run pytest --html=reports/report.html --self-contained-html tests/
 
       - name: Upload HTML Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: selenium-report
           path: reports/report.html
