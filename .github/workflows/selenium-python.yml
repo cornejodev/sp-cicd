@@ -1,6 +1,7 @@
 name: Run Selenium Tests
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
@@ -28,9 +29,7 @@ jobs:
         run: poetry install --no-root
 
       - name: Run Selenium tests
-        run: |
-          mkdir -p reports
-          poetry run pytest --html=reports/report.html --self-contained-html tests/
+        run: poetry run pytest --html=reports/report.html --self-contained-html tests/
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
